@@ -20,7 +20,18 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-        
+        <form>
+          <div class="mb-3">
+            <label for="task_name" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="task_name" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Apelido</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+            <div type="text" class="form-text">Se não desejar criar um apelido, daremos um.</div>
+          </div>
+          <div class="btn btn-primary">Submit</div>
+        </form>
       </div>
       <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...</div>
       <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
