@@ -21,14 +21,34 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="current-task-tab-pane" role="tabpanel" aria-labelledby="current-task-tab" tabindex="0">
         <form>
-          <div class="mb-3">
-            <label for="task_name" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="task_name" aria-describedby="emailHelp">
+          <div class="row">
+            <div class="mb-3 col-6">
+              <label for="task_name" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="task_name">
+            </div>
+            <div class="mb-3 col-6">
+              <label for="task_status" class="form-label">Status</label>
+              <select type="text" class="form-control" id="task_status">
+                <option value="not started">Not Started</option>
+                <option value="started">Started</option>
+                <option value="sent to">Sent To</option>
+                <option value="finished">Finished</option>
+                <option value="delivered">Delivered</option>
+                <option value="accepted">Accepted</option>
+              </select>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="task_alias" class="form-label">Apelido</label>
-            <input type="text" class="form-control" id="task_alias">
-            <div type="text" class="form-text">Se não desejar criar um apelido, daremos um.</div>
+          <div class="row">
+            <div class="mb-3 col-6">
+              <label for="task_alias" class="form-label">Apelido</label>
+              <input type="text" class="form-control" id="task_alias">
+              <div type="text" class="form-text">Se não desejar criar um apelido, daremos um.</div>
+            </div>
+            <div class="mb-3 col-6">
+              <label for="task_link" class="form-label">Link</label>
+              <input type="text" class="form-control" id="task_link" onchange="update_link()">
+              <a href=""  id="link_to_outside" class="form-text" target="_blank">Clique para abrir o link</a>
+            </div>
           </div>
           <div class="btn btn-primary" onclick="save_current_task()">Submit</div>
         </form>
@@ -42,13 +62,36 @@
       $(function() {
         load_last_task();
       });
+      
+      //BASIC IO
+      function save_local_storage(key, value){
+        localStorage.setItem(key, value);
+      }
 
+      function get_current_task_data(){
+        json = {
+          "task_name": $("#task_name").val(),
+          "task_alias": $("#task_alias").val(),
+          "task_status": $("#task_status").val(),
+          "task_link": $("#task_link").val()
+        };
+
+        console.log(json)
+
+        return JSON.stringify(json);
+      }
+      //END BASIC IO
+      
       function check_current_task(){
         console.log(get_current_task_data());
       }
 
+      function update_link(){
+        $("#link_to_outside").attr('href', $("#task_link").val())
+      }
+
       function save_current_task(){
-        localStorage.setItem("current_task", get_current_task_data());
+        save_local_storage("current_task", get_current_task_data())
       }
 
       function load_last_task(){
@@ -58,20 +101,15 @@
       }
 
       function recover_current_task_data(json){
-        fields = ["task_name", "task_alias"]
+        fields = ["task_name", "task_alias", "task_status", "task_link"]
         for(i = 0; i < fields.length; i++){
           task = fields[i];
-          $("#" + task).val(json[task])
+          if(task == "task_status"){
+            $("#" + task).val(json[task])
+          } else {
+            $("#" + task).val(json[task])
+          }
         }
-      }
-
-      function get_current_task_data(){
-        json = {
-          "task_name": $("#task_name").val(),
-          "task_alias": $("#task_alias").val()
-        };
-
-        return JSON.stringify(json);
       }
     </script>
     </body>
