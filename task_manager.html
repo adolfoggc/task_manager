@@ -50,6 +50,18 @@
               <a href=""  id="link_to_outside" class="form-text" target="_blank">Clique para abrir o link</a>
             </div>
           </div>
+          <div class="row">
+            <div class="mb-3 col-6">
+              <label for="task_comment" class="form-label">Novo Comentário</label>
+              <textarea class="form-control" id="task_comment"></textarea>
+            </div>
+            <div class="mb-3 col-6">
+              <label for="task_alias" class="form-label">Comentários Anteriores</label>
+              <div class="accordion" id="accordion">
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="comments_count"/>
           <div class="btn btn-primary" onclick="save_current_task()">Submit</div>
         </form>
       </div>
@@ -61,6 +73,9 @@
     <script>
       $(function() {
         load_last_task();
+        if($("#comments_count").val() == ""){
+          $("#comments_count").val(0)
+        }
       });
       
       //BASIC IO
@@ -69,12 +84,25 @@
       }
 
       function get_current_task_data(){
+        total_comments = $("#comments_count").val();
+        new_comment = $("#task_comment").val();
         json = {
           "task_name": $("#task_name").val(),
           "task_alias": $("#task_alias").val(),
           "task_status": $("#task_status").val(),
-          "task_link": $("#task_link").val()
+          "task_link": $("#task_link").val(),
+          "comments_count":  total_comments
         };
+
+        if(total_comments > 0){
+          for(i = 0; i < total_comments; i++){
+
+          }
+        }
+
+        if(new_comment != ""){
+          
+        }
 
         console.log(json)
 
@@ -101,7 +129,7 @@
       }
 
       function recover_current_task_data(json){
-        fields = ["task_name", "task_alias", "task_status", "task_link"]
+        fields = ["task_name", "task_alias", "task_status", "task_link", "comments_count"]
         for(i = 0; i < fields.length; i++){
           task = fields[i];
           if(task == "task_status"){
@@ -110,6 +138,24 @@
             $("#" + task).val(json[task])
           }
         }
+      }
+
+      function add_accordion(number, date_time, comment){
+        hmtl = '<div class="accordion-item" id="accordion_' + number + '">';
+        hmtl +=   '<h2 class="accordion-header">';
+        hmtl +=     '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse' + number + '" aria-expanded="true" aria-controls="collapse' + number + '">';
+        hmtl +=     '</button>';
+        hmtl +=   '</h2>';
+        hmtl +=   '<div id="collapse' + number + '" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">';
+        hmtl +=     '<div class="accordion-body">';
+        hmtl +=       "<strong>" + date_time + "</strong>";
+        hmtl +=       "<br>";
+        hmtl +=       comment;
+        hmtl +=     '</div>';
+        hmtl +=   '</div>';
+        hmtl += '</div>';
+
+        return html;
       }
     </script>
     </body>
