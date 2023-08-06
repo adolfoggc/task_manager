@@ -72,7 +72,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
       $(function() {
-        load_last_task();
+        load_current_task();
         if($("#comments_count").val() == ""){
           $("#comments_count").val(0)
         }
@@ -122,7 +122,7 @@
         save_local_storage("current_task", get_current_task_data())
       }
 
-      function load_last_task(){
+      function load_current_task(){
         task = localStorage.getItem("current_task");
         task = JSON.parse(task);
         recover_current_task_data(task);
