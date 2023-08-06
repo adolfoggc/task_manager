@@ -71,6 +71,7 @@
             <div class="mb-3 col-6">
               <label for="task_comment" class="form-label">Novo Comentário</label>
               <textarea class="form-control" id="task_comment"></textarea>
+              <div class="btn btn-primary" onclick="save_current_task()">Update</div>
             </div>
             <div class="mb-3 col-6">
               <label for="task_alias" class="form-label">Comentários Anteriores</label>
@@ -79,7 +80,6 @@
             </div>
           </div>
           <input type="hidden" id="comments_count"/>
-          <div class="btn btn-primary" onclick="save_current_task()">Update</div>
         </form>
       </div>
       <div class="tab-pane fade" id="weekly-task-tab-pane" role="tabpanel" aria-labelledby="weekly-task-tab" tabindex="0">...</div>
