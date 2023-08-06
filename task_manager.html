@@ -103,13 +103,6 @@
           "comments_count":  total_comments,
           "comments": comments
         };
-        
-        
-
-        if(total_comments > 0){
-          
-        }
-
 
         //TEMP
         console.log(json)
@@ -162,11 +155,15 @@
       }
 
       function recover_current_task_data(json){
-        fields = ["task_name", "task_alias", "task_status", "task_link", "comments_count"]
+        fields = ["task_name", "task_alias", "task_status", "task_link", "comments_count", "comments"]
         for(i = 0; i < fields.length; i++){
           task = fields[i];
-          if(task == "task_status"){
-            $("#" + task).val(json[task])
+          if(task == "comments"){
+            html = ""
+            for(j = 0; j < json[task].length; j++){
+              html += json[task][j];
+            }
+            $("#accordion").html(html)
           } else {
             $("#" + task).val(json[task])
           }
