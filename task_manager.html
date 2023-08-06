@@ -47,7 +47,7 @@
             <div class="mb-3 col-6">
               <label for="task_link" class="form-label">Link</label>
               <input type="text" class="form-control" id="task_link" onchange="update_link()">
-              <a href=""  id="link_to_outside" class="form-text" target="_blank">Clique para abrir o link</a>
+              <a href=""  id="external_link" class="form-text" target="_blank">Clique para abrir o link</a>
             </div>
           </div>
           <div class="row">
@@ -117,7 +117,7 @@
       }
 
       function update_link(){
-        $("#link_to_outside").attr('href', $("#task_link").val())
+        $("#external_link").attr('href', $("#task_link").val())
       }
 
       function save_current_task(){
