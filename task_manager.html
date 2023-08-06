@@ -71,7 +71,7 @@
             <div class="mb-3 col-6">
               <label for="task_comment" class="form-label">Novo Comentário</label>
               <textarea class="form-control" id="task_comment"></textarea>
-              <div class="btn btn-primary" onclick="save_current_task()">Update</div>
+              <div class="btn btn-primary" onclick="add_new_comment()">Update</div>
             </div>
             <div class="mb-3 col-6">
               <label for="task_alias" class="form-label">Comentários Anteriores</label>
@@ -100,31 +100,15 @@
         localStorage.setItem(key, value);
       }
 
-      function get_current_task_data(){
-        total_comments = $("#comments_count").val();
+      function updated_comments_to_string(){
+        json = get_current_task_json()
+        total_comments = parseInt(json["comments_count"]);
         new_comment = $("#task_comment").val();
-        if(new_comment != ""){
-          total_comments++; 
-          $("#comments_count").val(total_comments);
-          add_comment(total_comments, new_comment);
-          $("#task_comment").val("");
-        }
-
-        comments = get_old_comments();
-        
-        json = {
-          "task_name": $("#task_name").val(),
-          "task_alias": $("#task_alias").val(),
-          "task_status": $("#task_status").val(),
-          "task_link": $("#task_link").val(),
-          "comments_count":  total_comments,
-          "comments": comments,
-          "task_criticaly": $("#task_criticaly").val(),
-          "task_stack": $("#task_stack").val()
-        };
-
-        //TEMP
-        console.log(json)
+        add_comment(total_comments, new_comment);
+        $("#task_comment").val("");
+        comments = get_all_comments();
+        json["comments"] = comments
+        json["comments_count"] = parseInt(json["comments_count"]) + 1
 
         return JSON.stringify(json);
       }
@@ -152,7 +136,7 @@
         add_accordion(comment)
       }
 
-      function get_old_comments(){
+      function get_all_comments(){
         comments = $("#accordion").html().replace("\n              ", "").split("<div class=\"end\"></div>");
         comments = filter_comments(comments);
 
@@ -163,8 +147,8 @@
         $("#external_link").attr('href', $("#task_link").val())
       }
 
-      function save_current_task(){
-        save_local_storage("current_task", get_current_task_data())
+      function add_new_comment(){
+        save_local_storage("current_task", updated_comments_to_string())
       }
 
       function get_current_task_json(){
