@@ -24,11 +24,11 @@
           <div class="row">
             <div class="mb-3 col-6">
               <label for="task_name" class="form-label">Nome</label>
-              <input type="text" class="form-control" id="task_name">
+              <input type="text" class="form-control" id="task_name" onchange="update_field('task_name')">
             </div>
             <div class="mb-3 col-2">
               <label for="task_status" class="form-label">Status</label>
-              <select type="text" class="form-control" id="task_status">
+              <select type="text" class="form-control" id="task_status" onchange="update_field('task_status')">
                 <option value="not started">Not Started</option>
                 <option value="started">Started</option>
                 <option value="out of scope">Out of Scope</option>
@@ -39,7 +39,7 @@
             </div>
             <div class="mb-3 col-2">
               <label for="task_criticaly" class="form-label">Criticidade</label>
-              <select type="text" class="form-control" id="task_criticaly">
+              <select type="text" class="form-control" id="task_criticaly" onchange="update_field('task_criticaly')">
                 <option value="low">Baixa</option>
                 <option value="medium">Média</option>
                 <option value="high">Alta</option>
@@ -58,7 +58,7 @@
           <div class="row">
             <div class="mb-3 col-6">
               <label for="task_alias" class="form-label">Apelido</label>
-              <input type="text" class="form-control" id="task_alias">
+              <input type="text" class="form-control" id="task_alias" onchange="update_field('task_alias')">
               <div type="text" class="form-text">Se não desejar criar um apelido, daremos um.</div>
             </div>
             <div class="mb-3 col-6">
@@ -127,6 +127,12 @@
 
         return JSON.stringify(json);
       }
+
+      function update_field(field){
+        json = get_current_task_json()
+        json[field] = $("#"+field).val()
+        save_local_storage("current_task", JSON.stringify(json))
+      }
       //END BASIC IO
       
       function filter_comments(comments){
@@ -165,9 +171,12 @@
         save_local_storage("current_task", get_current_task_data())
       }
 
+      function get_current_task_json(){
+        return JSON.parse(localStorage.getItem("current_task"));
+      }
+
       function load_current_task(){
-        task = localStorage.getItem("current_task");
-        task = JSON.parse(task);
+        task = get_current_task_json()
         recover_current_task_data(task);
         update_link();
       }
