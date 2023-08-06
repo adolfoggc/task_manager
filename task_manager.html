@@ -110,7 +110,8 @@
           "task_status": $("#task_status").val(),
           "task_link": $("#task_link").val(),
           "comments_count":  total_comments,
-          "comments": comments
+          "comments": comments,
+          "task_criticaly": $("#task_criticaly").val()
         };
 
         //TEMP
@@ -164,7 +165,7 @@
       }
 
       function recover_current_task_data(json){
-        fields = ["task_name", "task_alias", "task_status", "task_link", "comments_count", "comments"]
+        fields = ["task_name", "task_alias", "task_status", "task_link", "comments_count", "comments", "task_criticaly"]
         for(i = 0; i < fields.length; i++){
           task = fields[i];
           if(task == "comments"){
