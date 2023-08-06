@@ -125,7 +125,8 @@
       function load_last_task(){
         task = localStorage.getItem("current_task");
         task = JSON.parse(task);
-        recover_current_task_data(task)
+        recover_current_task_data(task);
+        update_link();
       }
 
       function recover_current_task_data(json){
