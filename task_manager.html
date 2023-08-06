@@ -48,7 +48,7 @@
             </div>
             <div class="mb-3 col-2">
               <label for="task_stack" class="form-label">Stack</label>
-              <select type="text" class="form-control" id="task_stack">
+              <select type="text" class="form-control" id="task_stack" onchange="update_field('task_stack')">
                 <option value="development">Desenvolvimento</option>
                 <option value="test">Teste</option>
                 <option value="produtcion">Produção</option>
@@ -119,7 +119,8 @@
           "task_link": $("#task_link").val(),
           "comments_count":  total_comments,
           "comments": comments,
-          "task_criticaly": $("#task_criticaly").val()
+          "task_criticaly": $("#task_criticaly").val(),
+          "task_stack": $("#task_stack").val()
         };
 
         //TEMP
@@ -182,7 +183,7 @@
       }
 
       function recover_current_task_data(json){
-        fields = ["task_name", "task_alias", "task_status", "task_link", "comments_count", "comments", "task_criticaly"]
+        fields = ["task_name", "task_alias", "task_status", "task_link", "comments_count", "comments", "task_criticaly", "task_stack"]
         for(i = 0; i < fields.length; i++){
           task = fields[i];
           if(task == "comments"){
