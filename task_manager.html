@@ -70,8 +70,8 @@
           <div class="row">
             <div class="mb-3 col-6">
               <label for="task_comment" class="form-label">Novo Comentário</label>
-              <textarea class="form-control" id="task_comment"></textarea>
-              <div class="btn btn-primary" onclick="add_new_comment()">Update</div>
+              <textarea class="form-control" id="task_comment" onfocusout="check_comment()"></textarea>
+              <div class="btn btn-primary" id="new_comment" onclick="add_new_comment()">Update</div>
             </div>
             <div class="mb-3 col-6">
               <label for="task_alias" class="form-label">Comentários Anteriores</label>
@@ -93,6 +93,7 @@
         if($("#comments_count").val() == ""){
           $("#comments_count").val(0)
         }
+        $("#new_comment").hide();
       });
       
       //BASIC IO
@@ -133,7 +134,8 @@
         number = parseInt(number);
         current_date = new Date();
         comment = create_accordion_item(number, current_date, comment);
-        add_accordion(comment)
+        add_accordion(comment);
+        $("#new_comment").hide();
       }
 
       function get_all_comments(){
@@ -153,6 +155,14 @@
 
       function get_current_task_json(){
         return JSON.parse(localStorage.getItem("current_task"));
+      }
+
+      function check_comment(){
+        if($("#task_comment").val()){
+          $("#new_comment").show();
+        } else {
+          $("#new_comment").hide();
+        }
       }
 
       function load_current_task(){
