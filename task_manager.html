@@ -71,7 +71,9 @@
             <div class="mb-3 col-6">
               <label for="task_comment" class="form-label">Novo Comentário</label>
               <textarea class="form-control" id="task_comment" onfocusout="check_comment()"></textarea>
+              <br>
               <div class="btn btn-primary" id="new_comment" onclick="add_new_comment()">Update</div>
+              <div class="btn btn-danger" id="new_current_task" onclick="check_creat_current_task()">Apagar</div>
             </div>
             <div class="mb-3 col-6">
               <label for="task_alias" class="form-label">Comentários Anteriores</label>
@@ -130,6 +132,17 @@
         return filtered;
       }
 
+      function clear_all_current_task_fields(){
+        $("#accordion").html("");
+        $("#").html("");
+      }
+
+      function check_creat_current_task(){
+        if (confirm("Deseja apagar a task atual?") == true) {
+          
+        }
+      }
+
       function add_comment(number, comment){
         number = parseInt(number);
         current_date = new Date();
@@ -146,6 +159,7 @@
       }
 
       function update_link(){
+        update_field("task_link")
         $("#external_link").attr('href', $("#task_link").val())
       }
 
